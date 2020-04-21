@@ -61,7 +61,7 @@ class cleanto_booking{
 		'".$this->method_id."','".$this->method_unit_id."','".$this->method_unit_qty."',
 		'".$this->method_unit_qty_rate."','".$this->booking_status."','".$this->reject_reason."','0',
 		'".$this->lastmodify."','".$this->read_status."','".$this->staff_id."','',
-		'',".$this->lat.",".$this->lng.")";
+		'','".$this->lat."','".$this->lng."')";
 		
 		$result=mysqli_query($this->conn,$query);
 		$value=mysqli_insert_id($this->conn);	
