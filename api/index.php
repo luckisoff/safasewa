@@ -3063,6 +3063,7 @@ elseif (isset($_POST["action"]) && $_POST["action"] == "get_all_services") {
 	}
 }elseif(isset($_POST["action"]) && $_POST["action"] == "book_appointment") { /* "cart_detail" this parameter also required */
 	verifyRequiredParams(array("api_key", "recurrence_id", "user_id", "staff_id", "service_id", "method_id", "payment_method", "sub_total", "tax", "discount", "freq_discount_amount", "net_amount", "order_duration"));
+
 	if (isset($_POST["api_key"]) && $_POST["api_key"] == $objsettings->get_option("ct_api_key")) {
 		$t_zone_value = $settings->get_option("ct_timezone");
 		$server_timezone = date_default_timezone_get();
@@ -3098,6 +3099,10 @@ elseif (isset($_POST["action"]) && $_POST["action"] == "get_all_services") {
 		}else{
 			$booking_status="A";
 		}
+
+		$lat = isset($_POST['lat']) ? $_POST['lat']:'';
+		$lng = isset($_POST['lng']) ? $_POST['lng']:'';
+
 		$email_order_id = $orderid;
 		$client_id = $user->user_id = $_POST["user_id"];
 		$staff_id = $_POST["staff_id"];
@@ -3150,6 +3155,10 @@ elseif (isset($_POST["action"]) && $_POST["action"] == "get_all_services") {
 						$booking->lastmodify = $current_time;
 						$booking->read_status = "U";
 						$booking->staff_id = $staff_id;
+
+						$booking->lat = $lat;
+						$booking->lng = $lng;
+						
 						$booking->add_booking();
 					} else {
 						$booking->addons_service_id = $cart_detail[$i]["unit_id"];
